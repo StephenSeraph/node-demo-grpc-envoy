@@ -1,0 +1,35 @@
+
+##################################################
+# node-demo-grpc-envoy
+##################################################
+
+version: '3'
+services:
+
+  demo-envoy-proxy:
+    image: envoyproxy/envoy
+    ports:
+      - "10000:10000"
+      - "9901:9901"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+
+  demo-server1:
+    image: node:8.11.1
+    ports:
+      - 55555:55555
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./server:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm start
+
+  demo-server2:
+    image: node:8.11.1
+    ports:
+      - 55556:55555
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./server:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm start

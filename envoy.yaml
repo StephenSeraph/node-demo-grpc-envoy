@@ -1,0 +1,49 @@
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address: { address: 0.0.0.0, port_value: 9901 }
+
+static_resources:
+  listeners:
+  - name: listener_0
+    address:
+      socket_address: { address: 0.0.0.0, port_value: 10000 }
+    filter_chains:
+    - filters:
+      - name: envoy.http_connection_manager
+        config:
+          codec_type: AUTO
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: local_service
+              domains: ["*"]
+              routes:
+              - match: { prefix: "/test_protocol.UnaryCall1" }
+                route: { cluster: server1 }
+              - match: { prefix: "/test_protocol.UnaryCall2" }
+                route: { cluster: server2 }
+              - match: { prefix: "/test_protocol" }
+                route: { cluster: server1 }
+          http_filters:
+          - name: envoy.router
+  clusters:
+  - name: server1
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: round_robin
+    http2_protocol_options: { }
+    hosts:
+    - socket_address:
+        address: "demo-server1"
+        port_value: 55555
+  - name: server2
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: round_robin
+    http2_protocol_options: { }
+    hosts:
+    - socket_address:
+        address: "demo-server2"
+        port_value: 55555

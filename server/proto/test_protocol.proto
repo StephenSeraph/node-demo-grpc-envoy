@@ -1,0 +1,24 @@
+
+syntax = "proto3";
+package test_protocol;
+
+message Data {
+  float a = 1;
+  bytes b = 2;
+}
+
+service UnaryCall1 {
+  rpc Get1(Data) returns (Data) {};
+}
+
+service UnaryCall2 {
+  rpc Get2(Data) returns (Data) {};
+}
+
+service GetStream {
+  rpc GetStream(Data) returns (stream Data) {};
+}
+
+service DuplexStream {
+  rpc GetDuplexStream(stream Data) returns (stream Data) {};
+}

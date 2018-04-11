@@ -1,0 +1,19 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "1": "node index.js 1",
+    "2": "node index.js 2",
+    "3": "node index.js 3",
+    "4": "node index.js 4",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "grpc": "^1.10.1"
+  }
+}
