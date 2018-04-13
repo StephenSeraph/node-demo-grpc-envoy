@@ -24,6 +24,8 @@ static_resources:
                 route: { cluster: server1 }
               - match: { prefix: "/test_protocol.UnaryCall2" }
                 route: { cluster: server2 }
+              - match: { prefix: "/test_protocol.GetStream" }
+                route: { cluster: server2, timeout: { seconds: 0 } }
               - match: { prefix: "/test_protocol" }
                 route: { cluster: server1 }
           http_filters:

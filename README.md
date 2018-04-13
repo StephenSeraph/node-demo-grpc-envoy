@@ -18,7 +18,7 @@ npm start # test all
 
 ## Problems
 
-- Server Streaming dosenot work well.
+- ~~Server Streaming dosenot work well.~~
 
 ## Relevant Issues
 

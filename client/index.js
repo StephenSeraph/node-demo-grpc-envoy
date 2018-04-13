@@ -41,6 +41,7 @@ function getStream(params) {
   stream.on('error', status => {});
   stream.on('data', data => {
     console.log('GetStream get data', data);
+    // stream.cancel();
   });
 };
 

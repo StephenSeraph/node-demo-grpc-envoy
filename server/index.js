@@ -24,15 +24,16 @@ function Get2(call, callback) {
 
 function GetStream(call) {
   console.log('GetStream req param', call.request);
-  setInterval(() => {
+  const id = setInterval(() => {
     const reply = { a: Math.random(), b: pic };
     console.log('GetStream write param', reply);
     call.write(reply, error => {
       if (error) console.log('GetStream write error', error);
     });
   }, 2000);
-  call.on('end', data => {
-    console.log('GetStream get end', data);
+  call.on('error', error => {
+    console.log('GetStream get error', error);
+    clearInterval(id);
   });
 }
 
